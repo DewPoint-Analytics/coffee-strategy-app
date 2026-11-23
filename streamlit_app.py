@@ -129,11 +129,11 @@ with tab1:
     fig.add_hline(y=100, line=dict(color=INK, dash="dot", width=1.5), annotation_text="Target", annotation_position="top left")
     fig.update_yaxes(title="% of target", ticksuffix="%", range=[0, max(sel["Pct"].max() * 1.15, 120) if len(sel) else 120])
     fig.update_layout(bargap=.25)
-    st.plotly_chart(style(fig, 420), use_container_width=True)
+    st.plotly_chart(style(fig, 420), width="stretch")
     st.markdown('<p class="note">Targets: $500,000 at Levels 1 and 2, $5,000,000 at Level 3. The only miss was the low-price Campus run (99% of target).</p>', unsafe_allow_html=True)
     with st.expander("See the table"):
         t = sel[["Short", "Strategy (one line)", "Game total ($)", "Target ($)", "Pct"]].rename(columns={"Short": "Run", "Pct": "% of target"})
-        st.dataframe(t, hide_index=True, use_container_width=True,
+        st.dataframe(t, hide_index=True, width="stretch",
                      column_config={"Game total ($)": st.column_config.NumberColumn(format="$%,d"), "Target ($)": st.column_config.NumberColumn(format="$%,d"),
                                     "% of target": st.column_config.NumberColumn(format="%.0f%%")})
 
@@ -163,7 +163,7 @@ with tab2:
                     hovertemplate="Profit: $%{y:,.0f}<extra></extra>")
         fig.update_layout(barmode="stack", bargap=.3)
         fig.update_yaxes(tickprefix="$", tickformat="~s")
-        st.plotly_chart(style(fig, 400), use_container_width=True)
+        st.plotly_chart(style(fig, 400), width="stretch")
     with b:
         st.markdown("#### Customers and price, year by year")
         fig = go.Figure()
@@ -171,9 +171,9 @@ with tab2:
         fig.add_bar(x=df["Year"].map(lambda y: f"Y{y}"), y=df["Drinks/day evening"], name="Evening drinks/day", marker=dict(color=ROSE, cornerradius=3))
         fig.update_layout(barmode="stack", bargap=.3)
         fig.update_yaxes(title="Drinks per day")
-        st.plotly_chart(style(fig, 400), use_container_width=True)
+        st.plotly_chart(style(fig, 400), width="stretch")
     show = df[["Year", "Location", "Roasting", "Coffee", "Competitor price ($)", "My price ($)", "Employee stars", "Customer stars", "Revenue ($)", "Total cost ($)", "Operating profit ($)"]]
-    st.dataframe(show, hide_index=True, use_container_width=True,
+    st.dataframe(show, hide_index=True, width="stretch",
                  column_config={c: st.column_config.NumberColumn(format="$%,d") for c in ["Revenue ($)", "Total cost ($)", "Operating profit ($)"]}
                  | {c: st.column_config.NumberColumn(format="$%.2f") for c in ["Competitor price ($)", "My price ($)"]})
 
@@ -196,7 +196,7 @@ with tab3:
                             line=dict(color=RUN_COLORS[(r - 1) % 5], width=2.5), marker=dict(size=9, line=dict(color="#fffaf1", width=2)),
                             hovertemplate=f"Run {r} · %{{x}}: $%{{y:,.0f}}<extra></extra>")
         fig.update_yaxes(tickprefix="$", tickformat="~s")
-        st.plotly_chart(style(fig, 380), use_container_width=True)
+        st.plotly_chart(style(fig, 380), width="stretch")
     with b:
         st.markdown("#### Own stores at year end")
         fig = go.Figure()
@@ -204,9 +204,9 @@ with tab3:
             s = g[g["Run"] == r]
             fig.add_bar(x=s["Year"].map(lambda y: f"Y{y}"), y=s["Own stores (end of year)"], name=f"Run {r}", marker=dict(color=RUN_COLORS[(r - 1) % 5], cornerradius=3))
         fig.update_layout(bargap=.3)
-        st.plotly_chart(style(fig, 380), use_container_width=True)
+        st.plotly_chart(style(fig, 380), width="stretch")
     tot = runs[runs["Level"] == "L3"][["Run", "Strategy (one line)", "Game total ($)"]]
-    st.dataframe(tot, hide_index=True, use_container_width=True, column_config={"Game total ($)": st.column_config.NumberColumn("Five-year profit", format="$%,d")})
+    st.dataframe(tot, hide_index=True, width="stretch", column_config={"Game total ($)": st.column_config.NumberColumn("Five-year profit", format="$%,d")})
     st.markdown('<p class="note">Run 5, with a third Emerging store in Year 1, earned the most: $12,501,031. Opening Emerging stores faster added $952,776 (E13).</p>', unsafe_allow_html=True)
 
 # ---------- Decision Lab ----------
@@ -231,7 +231,7 @@ with tab4:
     fig.update_xaxes(range=[lo - pad, hi + pad])
     fig.update_traces(cliponaxis=False)
     fig.update_xaxes(tickprefix="$", tickformat="~s", title="Five-year profit effect")
-    st.plotly_chart(style(fig, max(320, 46 * len(e) + 80), legend=False), use_container_width=True)
+    st.plotly_chart(style(fig, max(320, 46 * len(e) + 80), legend=False), width="stretch")
     st.markdown('<p class="note">Teal = the change added profit, terracotta = it cost profit. "Descriptive" comparisons differed in more than one setting, so treat them as indicative.</p>', unsafe_allow_html=True)
     for _, r in e.sort_values("ID", key=lambda s: s.str[1:].astype(int)).iterrows():
         with st.expander(f"{r['ID']} · {r['What changed']}  ({money(r['Profit effect ($)'])})"):
