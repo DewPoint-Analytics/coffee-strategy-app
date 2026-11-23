@@ -40,6 +40,9 @@ div[data-testid="stMetricDelta"] {background:#f3e6cf !important; color:#7a3320 !
 .card {background:#fffaf1; border:1px solid #eadcc4; border-radius:14px; padding:16px 18px; margin-bottom:12px}
 .card b {color:#7a3320}
 .note {font-size:.82rem; color:#7d6656}
+.explore {line-height:2}
+.explore a {color:#7a3320 !important; text-decoration:none; font-weight:600}
+.explore a:hover {text-decoration:underline}
 footer {visibility:hidden}
 </style>
 """,
@@ -97,9 +100,11 @@ with st.sidebar:
     levels = st.multiselect("Levels", ["L1", "L2", "L3"], default=["L1", "L2", "L3"])
     st.markdown("---")
     st.markdown(
-        "**Explore more**  \n[☕ Full dashboard](https://dewpoint-analytics.github.io/coffee-strategy-dashboard/?ref=streamlit)  \n"
-        "[🏠 3D Coffee Hub](https://dewpoint-analytics.github.io/3DCoffeeHub/?ref=streamlit)  \n"
-        "[📄 Field report](https://dewpoint-analytics.github.io/coffee-strategy-dashboard/report.html?ref=streamlit)"
+        '<p class="explore"><b>Explore more</b><br>'
+        '<a target="_self" href="https://dewpoint-analytics.github.io/coffee-strategy-dashboard/?ref=streamlit&from=app">☕ Full dashboard</a><br>'
+        '<a target="_self" href="https://dewpoint-analytics.github.io/3DCoffeeHub/?ref=streamlit&from=app">🏠 3D Coffee Hub</a><br>'
+        '<a target="_self" href="https://dewpoint-analytics.github.io/coffee-strategy-dashboard/report.html?ref=streamlit"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style="vertical-align:-2px"><g fill="#7a3320"><path fill-rule="evenodd" d="M1 1h5v5H1zM2 2v3h3V2zM10 1h5v5h-5zm1 1v3h3V2zM1 10h5v5H1zm1 1v3h3v-3z"/><rect x="3" y="3" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="7" y="1" width="2" height="2"/><rect x="7" y="4" width="1" height="3"/><rect x="9" y="7" width="2" height="1"/><rect x="7" y="9" width="2" height="2"/><rect x="10" y="10" width="2" height="2"/><rect x="13" y="9" width="2" height="1"/><rect x="12" y="12" width="3" height="1"/><rect x="10" y="13" width="1" height="2"/><rect x="13" y="14" width="2" height="1"/><rect x="1" y="7" width="3" height="1"/><rect x="5" y="8" width="1" height="1"/></g></svg> Field report</a></p>',
+        unsafe_allow_html=True,
     )
     st.markdown('<p class="note">Source: my own runs of Coffee Shop Inc. (Sim Institute / Harvard Business Impact), Oct–Nov 2026. '
                 "Figures are from the game's result screens.</p>", unsafe_allow_html=True)
